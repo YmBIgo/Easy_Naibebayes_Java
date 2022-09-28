@@ -45,8 +45,8 @@ public class Naibebayes {
 		//
 		// String unknown_document = "56号ホームランがかかるヤクルトの村上宗隆選手が6回、「申告敬遠」で出塁しました。";
 		// String unknown_document = "巨人の井上温大投手は２７日、Ｇ球場で行われた１軍の投手練習に参加し、キャッチボールやランニングで汗を流した。";
-		String unknown_document = "日本選手最多５６号に王手をかけているヤクルト・村上は３打数無安打に終わり、新記録はまたもお預けに終わった。";
-		// String unknown_document = "高梨雄平投手は２７日、Ｇ球場で行われた１軍の投手練習に参加。キャッチボールなどで汗を流した。";
+		// String unknown_document = "日本選手最多５６号に王手をかけているヤクルト・村上は３打数無安打に終わり、新記録はまたもお預けに終わった。";
+		String unknown_document = "高梨雄平投手は２７日、Ｇ球場で行われた１軍の投手練習に参加。キャッチボールなどで汗を流した。";
 		int judge_result = judge(unknown_document);
 		System.out.println(judge_result);
 	}
@@ -107,11 +107,15 @@ public class Naibebayes {
 			BigDecimal category_denominator_d = new BigDecimal(category_denominator);
 			BigDecimal category0_result = category0_numerator_d.divide(category_denominator_d, 5, RoundingMode.HALF_UP);
 			BigDecimal category1_result = category1_numerator_d.divide(category_denominator_d, 5, RoundingMode.HALF_UP);
+			double category0_result_log = Math.log(category0_result.doubleValue());
+			double category1_result_log = Math.log(category1_result.doubleValue());
+			BigDecimal category0_result_log_d = new BigDecimal(category0_result_log);
+			BigDecimal category1_result_log_d = new BigDecimal(category1_result_log);
 			//
 			// System.out.println(category0_result);
 			// System.out.println(category1_result);
-			category0_percentage = category0_percentage.add(category0_result);
-			category1_percentage = category1_percentage.add(category1_result);
+			category0_percentage = category0_percentage.add(category0_result_log_d);
+			category1_percentage = category1_percentage.add(category1_result_log_d);
 		}
 		// System.out.println(category0_percentage);
 		// System.out.println(category1_percentage);
